@@ -5,43 +5,75 @@ var up_events:Array[String] = ["W", "UP"]
 var down_events:Array[String] = ["S", "DOWN"]
 var left_events:Array[String] = ["A", "LEFT"]
 var right_events:Array[String] = ["D", "RIGHT"]
+var jump_events:Array[String] = ["SPACE"]
 var pause_events:Array[String] = ["P"]
 
+const JOY_DEFAULTS := {
+	&"Up": [[JOY_AXIS_LEFT_Y, -1.0], JOY_BUTTON_DPAD_UP],
+	&"Down": [[JOY_AXIS_LEFT_Y, 1.0], JOY_BUTTON_DPAD_DOWN],
+	&"Left": [[JOY_AXIS_LEFT_X, -1.0], JOY_BUTTON_DPAD_LEFT],
+	&"Right": [[JOY_AXIS_LEFT_X, 1.0], JOY_BUTTON_DPAD_RIGHT],
+	&"Jump": [JOY_BUTTON_A],
+	&"Pause": [JOY_BUTTON_START],
+	&"LookUp": [[JOY_AXIS_RIGHT_Y, -1.0]],
+	&"LookDown": [[JOY_AXIS_RIGHT_Y, 1.0]],
+	&"LookLeft": [[JOY_AXIS_RIGHT_X, -1.0]],
+	&"LookRight": [[JOY_AXIS_RIGHT_X, 1.0]],
+}
+
 func _init() -> void:
-	InputMap.add_action("Up")
-	InputMap.add_action("Down")
-	InputMap.add_action("Left")
-	InputMap.add_action("Right")
-	InputMap.add_action("Pause")
-	
 	set_meta("title", "Input")
 	set_meta("up_events", PropertyMeta.new("Up"))
 	set_meta("down_events", PropertyMeta.new("Down"))
 	set_meta("left_events", PropertyMeta.new("Left"))
 	set_meta("right_events", PropertyMeta.new("Right"))
+	set_meta("jump_events", PropertyMeta.new("Jump"))
 	set_meta("pause_events", PropertyMeta.new("Pause"))
 
-func from_dict(dict:Dictionary) -> void:
-	super.from_dict(dict)
-	var prop_list = get_property_list()
-	for prop in prop_list:
+## Rebuild the InputMap from the saved keys and gamepad defaults.
+func apply() -> void:
+	var keys_by_action := {}
+	for prop in get_property_list():
 		if prop.usage == PROPERTY_USAGE_SCRIPT_VARIABLE:
-			var events = get(prop.name) as Array[String]
 			var meta = get_meta(prop.name) as PropertyMeta
-			_map_strings_to_events(meta.label, events)
+			keys_by_action[StringName(meta.label)] = get(prop.name)
+	for action in JOY_DEFAULTS:
+		keys_by_action.get_or_add(action, [])
 
+	for action in keys_by_action:
+		if not InputMap.has_action(action):
+			InputMap.add_action(action)
+		InputMap.action_erase_events(action)
+		for key in keys_by_action[action]:
+			InputMap.action_add_event(action, _key_event(key))
+		for binding in JOY_DEFAULTS.get(action, []):
+			InputMap.action_add_event(action, _joy_event(binding))
+
+## Swap one key for another or add if the old key isn't bound.
 func update(value:Variant, property_name:StringName) -> void:
-	var meta = get_meta(property_name) as PropertyMeta
 	var events = get(property_name) as Array[String]
 	var idx = events.find(value.previous_keycode)
-	events.set(idx, value.keycode_as_string)
-	InputMap.action_erase_events(meta.label)
-	_map_strings_to_events(meta.label, events)
+	if idx == -1:
+		events.append(value.keycode_as_string)
+	else:
+		events[idx] = value.keycode_as_string
+	apply()
 	super.update(events, property_name)
 
 
-func _map_strings_to_events(action:StringName, events:Array[String]) -> void:
-	for event_code in events:
-		var input_event = InputEventKey.new()
-		input_event.keycode = OS.find_keycode_from_string(event_code)
-		InputMap.action_add_event(action, input_event)
+func _key_event(key:String) -> InputEventKey:
+	var event = InputEventKey.new()
+	event.keycode = OS.find_keycode_from_string(key)
+	return event
+
+func _joy_event(binding:Variant) -> InputEvent:
+	var event:InputEvent
+	if binding is Array:
+		event = InputEventJoypadMotion.new()
+		event.axis = binding[0]
+		event.axis_value = binding[1]
+	else:
+		event = InputEventJoypadButton.new()
+		event.button_index = binding
+	event.device = -1 # any controller
+	return event
