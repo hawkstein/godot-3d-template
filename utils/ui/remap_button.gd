@@ -12,12 +12,12 @@ func _init(event_code:String):
 
 
 func _ready():
-	set_process_unhandled_input(false)
+	set_process_input(false)
 	update_key_text()
 
 
 func _toggled(toggled_on:bool):
-	set_process_unhandled_input(toggled_on)
+	set_process_input(toggled_on)
 	if toggled_on:
 		text = " ? "
 		release_focus()
@@ -26,9 +26,12 @@ func _toggled(toggled_on:bool):
 		grab_focus()
 
 
-func _unhandled_input(event:InputEvent):
-	if event.pressed:
-		if event.keycode:
+
+func _input(event:InputEvent):
+	if event is InputEventMouseButton and event.pressed:
+		button_pressed = false # any click cancels
+	elif event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode and event.keycode != KEY_ESCAPE: # Escape cancels
 			var previous_keycode = keycode_as_string
 			keycode_as_string = OS.get_keycode_string(event.keycode)
 			var update := {
@@ -37,7 +40,11 @@ func _unhandled_input(event:InputEvent):
 			}
 			keycode_updated.emit(update)
 		button_pressed = false
+	else:
+		return
+	get_viewport().set_input_as_handled()
 
 
+## Show the bound key on the button.
 func update_key_text():
 	text = keycode_as_string
