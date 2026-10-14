@@ -17,18 +17,35 @@ func _init() -> void:
 
 func _ready() -> void:
 	for key in data:
-		_load_model(key)
-		data[key].property_updated.connect(save_data_debounced.bind(key))
+		_setup_model(key)
 
+## Get a registered model by key.
 func get_model(key:StringName) -> DataModel:
 	return data[key]
 
 
+## Add a model at runtime. Returns the existing model if the key is already registered.
+func register_model(key:StringName, model:DataModel) -> DataModel:
+	if key in data:
+		return data[key]
+	data[key] = model
+	_setup_model(key)
+	return model
+
+
+## Restore a model's defaults and save immediately.
+func reset_model(key:StringName) -> void:
+	data[key].reset()
+	save_data(key)
+
+
+## Save every registered model to disk now.
 func save_game_data() -> void:
 	for key in data:
 		save_data(key)
 
 
+## Save one model to user://{key}_data.json now.
 func save_data(key:StringName) -> void:
 	var data_dict = data[key].to_dict()
 	var json_string := JSON.stringify(data_dict)
@@ -42,6 +59,7 @@ func save_data(key:StringName) -> void:
 	file_access.store_line(json_string)
 	file_access.close()
 
+## Save a model 0.5s after its last change.
 func save_data_debounced(_property_name:StringName, key: StringName):
 	if not key in debounce_timers:
 		_create_debounce_timer(key)
@@ -57,6 +75,11 @@ func _create_debounce_timer(key: StringName):
 	timer.one_shot = true
 	timer.timeout.connect(save_data.bind(key))
 	debounce_timers[key] = timer
+
+func _setup_model(key:StringName) -> void:
+	_load_model(key)
+	data[key].apply()
+	data[key].property_updated.connect(save_data_debounced.bind(key))
 
 func _load_model(key:StringName) -> void:
 	var model_path = SAVE_PATH.format([key])
