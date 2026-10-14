@@ -13,23 +13,40 @@ func to_dict() -> Dictionary:
 	
 	return dict
 
-func from_dict(dict: Dictionary):
-	var props = get_property_list()
-	
-	for p in props:
-		if dict.has(p.name):
-			if p.type == Variant.Type.TYPE_ARRAY:
-				var typed_array:Array[String] = []
-				typed_array.assign(dict[p.name])
-				set(p.name, typed_array)
-			else:
-				set(p.name, dict[p.name])
+func from_dict(dict: Dictionary) -> void:
+	for p in get_property_list():
+		if not dict.has(p.name):
+			continue
+		var value = dict[p.name]
+		match p.type:
+			TYPE_ARRAY:
+				(get(p.name) as Array).assign(value)
+			TYPE_DICTIONARY:
+				(get(p.name) as Dictionary).assign(value)
+			TYPE_INT:
+				set(p.name, int(value))
+			_:
+				set(p.name, value)
 
 
 func update(value:Variant, property_name:StringName) -> void:
 	#print("Update {0} to {1}".format([property_name, value]))
 	set(property_name, value)
 	property_updated.emit(property_name)
+
+
+## Override in models that drive engine state.
+func apply() -> void:
+	pass
+
+
+func update_by(amount: Variant, property_name: StringName) -> void:
+	update(get(property_name) + amount, property_name)
+
+
+func reset() -> void:
+	from_dict(get_script().new().to_dict())
+	apply()
 
 
 class PropertyMeta:
