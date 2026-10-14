@@ -21,3 +21,9 @@ func _init() -> void:
 	set_meta("master_volume", SliderMeta.new("Master"))
 	set_meta("sfx_volume", SliderMeta.new("SFX"))
 	set_meta("music_volume", SliderMeta.new("Music"))
+
+## Push current volumes to the audio buses.
+func apply() -> void:
+	AudioManager.set_master_volume(master_volume)
+	AudioManager.set_sfx_volume(sfx_volume)
+	AudioManager.set_music_volume(music_volume)
