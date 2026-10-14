@@ -77,7 +77,7 @@ func _build_toggle(prop_name:String, data_model:DataModel) -> Array[Control]:
 	label.text = prop_meta.label
 	row.append(label)
 	var toggle = CheckBox.new()
-	toggle.text = "Show/hide"
+	toggle.text = "On"
 	toggle.button_pressed = data_model.get(prop_name)
 	toggle.toggled.connect( data_model.update.bind(prop_name) )
 	toggle.size_flags_horizontal = Control.SIZE_EXPAND_FILL
