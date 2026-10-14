@@ -14,20 +14,19 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="godot-2d-template"
+config/name="godot-3d-template"
 run/main_scene="uid://dfn6sijy2qq8n"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/stretch_mode=0
-boot_splash/use_filter=false
 boot_splash/image="uid://4iakeclf4k4b"
 config/icon="res://icon.svg"
 
 [autoload]
 
+AudioManager="*res://utils/audio_manager.gd"
 DataStore="*res://utils/config/data_store.gd"
 ScreenChanger="*res://utils/screen_changer.tscn"
-AudioManager="*res://utils/audio_manager.gd"
 
 [display]
 
@@ -36,10 +35,13 @@ window/size/viewport_height=540
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
-window/stretch/scale_mode="integer"
+window/stretch/aspect="expand"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

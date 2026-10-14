@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bctrkav2hq5nh" path="res://utils/ui/credits_screen.tscn" id="4_p77q5"]
 [ext_resource type="PackedScene" uid="uid://d304m7pn6lnlt" path="res://utils/ui/scores_screen.tscn" id="5_yscu7"]
 
-[node name="ScreenChanger" type="Node2D" unique_id=495053001]
+[node name="ScreenChanger" type="Node" unique_id=1076999280]
 script = ExtResource("1_ahmay")
 screens = Dictionary[StringName, PackedScene]({
 &"credits": ExtResource("4_p77q5"),
