@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://omkrdyrq3u73" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="AudioStream" uid="uid://cbbv231ayv0h" path="res://assets/music/komiku_opening.mp3" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://icg5dtww7q44" path="res://entities/player/third_person_player.tscn" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bkpggl0lwqmju" path="res://screens/pause_menu.tscn" id="5_7mycd"]
 [ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://utils/ui/default_theme.tres" id="5_lquwl"]
-[ext_resource type="PackedScene" uid="uid://dljnepvvb7jvm" path="res://utils/ui/title_window.tscn" id="6_7mycd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1bvp3"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -100,10 +100,4 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_constants/shadow_outline_size = 4
 text = "Score: 9999"
 
-[node name="PauseWindow" parent="." unique_id=1558914299 instance=ExtResource("6_7mycd")]
-unique_name_in_owner = true
-offset_left = 300.0
-offset_top = 64.0
-offset_right = 700.0
-offset_bottom = 464.0
-title = "Options (Paused)"
+[node name="PauseMenu" parent="." unique_id=1387676273 instance=ExtResource("5_7mycd")]

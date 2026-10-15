@@ -4,6 +4,8 @@ extends Control
 @onready var options_v_box_container: VBoxContainer = $MarginContainer/OptionsVBoxContainer
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	var builder := UIBuilder.new()
 	var audio_section = builder.build_section_from_model(DataStore.get_model("Audio"))
 	options_container.add_child(audio_section)
