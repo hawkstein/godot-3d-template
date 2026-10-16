@@ -38,6 +38,7 @@ layout_mode = 2
 [node name="Title" type="Label" parent="VBox/Background/Margin/VBox" unique_id=1680569172]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"TitleLabel"
 text = "Title"
 horizontal_alignment = 1
 
