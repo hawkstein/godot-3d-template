@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://cbbv231ayv0h" path="res://assets/music/komiku_opening.mp3" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://icg5dtww7q44" path="res://entities/player/third_person_player.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bkpggl0lwqmju" path="res://screens/pause_menu.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://cbuas17ydfjcl" path="res://utils/ui/message_layer.tscn" id="5_272bh"]
 [ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://default_theme.tres" id="5_lquwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1bvp3"]
@@ -99,5 +100,7 @@ theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/shadow_outline_size = 4
 text = "Score: 9999"
+
+[node name="MessageLayer" parent="." unique_id=1692279544 instance=ExtResource("5_272bh")]
 
 [node name="PauseMenu" parent="." unique_id=1387676273 instance=ExtResource("5_7mycd")]
