@@ -29,7 +29,9 @@ func register_model(key:StringName, model:DataModel) -> DataModel:
 	if key in data:
 		return data[key]
 	data[key] = model
-	_setup_model(key)
+	# Before _ready (e.g. a scene run directly), _ready sets up every model including this one.
+	if is_node_ready():
+		_setup_model(key)
 	return model
 
 
