@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://utils/ui/default_theme.tres" id="1_82lyh"]
 [ext_resource type="Script" uid="uid://dsmexmwfv7rxr" path="res://utils/ui/scores_screen.gd" id="2_82lyh"]
+[ext_resource type="Script" uid="uid://dchp2kgb22jjp" path="res://utils/ui/fancy_button.gd" id="3_1mipn"]
 
 [node name="ScoresScreen" type="Control" unique_id=1228490364]
 layout_mode = 3
@@ -48,8 +49,11 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScoresContainer" unique_id=1594744726]
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1696330846]
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=525595525]
 layout_mode = 2
 text = "Back to start screen"
+script = ExtResource("3_1mipn")
+focus_scale = 1.0
+metadata/_custom_type_script = "uid://dchp2kgb22jjp"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

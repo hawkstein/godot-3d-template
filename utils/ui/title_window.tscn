@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://utils/ui/default_theme.tres" id="1_606pq"]
 [ext_resource type="Script" uid="uid://c0ddnb5af46gc" path="res://utils/ui/title_window.gd" id="2_5ogai"]
+[ext_resource type="Script" uid="uid://dchp2kgb22jjp" path="res://utils/ui/fancy_button.gd" id="3_e28w8"]
 
 [node name="TitleWindow" type="Control" unique_id=313680549]
 custom_minimum_size = Vector2(400, 400)
@@ -46,8 +47,11 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CloseButton" type="Button" parent="VBox/Background/Margin/VBox" unique_id=404506511]
+[node name="CloseButton" type="Button" parent="VBox/Background/Margin/VBox" unique_id=2111444229]
 layout_mode = 2
 text = "Close"
+script = ExtResource("3_e28w8")
+focus_scale = 1.0
+metadata/_custom_type_script = "uid://dchp2kgb22jjp"
 
 [connection signal="pressed" from="VBox/Background/Margin/VBox/CloseButton" to="." method="_on_close_button_pressed"]
