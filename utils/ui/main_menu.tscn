@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://4iakeclf4k4b" path="res://utils/ui/menu-header.png" id="1_1anft"]
 [ext_resource type="Script" uid="uid://dqn7tfj4acgyi" path="res://utils/ui/main_menu.gd" id="1_wyq4t"]
-[ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://utils/ui/default_theme.tres" id="1_xp5nu"]
+[ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://default_theme.tres" id="1_xp5nu"]
 [ext_resource type="Script" uid="uid://dchp2kgb22jjp" path="res://utils/ui/fancy_button.gd" id="4_8naov"]
 
 [node name="MainMenu" type="Control" unique_id=1018463224]
@@ -48,6 +48,7 @@ offset_transform_enabled = true
 theme_override_constants/separation = 20
 
 [node name="TitleSplashTextureRect" type="TextureRect" parent="MarginContainer/StartVBoxContainer" unique_id=1137787995]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("1_1anft")
 stretch_mode = 3

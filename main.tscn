@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://cbbv231ayv0h" path="res://assets/music/komiku_opening.mp3" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://icg5dtww7q44" path="res://entities/player/third_person_player.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bkpggl0lwqmju" path="res://screens/pause_menu.tscn" id="5_7mycd"]
-[ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://utils/ui/default_theme.tres" id="5_lquwl"]
+[ext_resource type="Theme" uid="uid://bes7poiouimn8" path="res://default_theme.tres" id="5_lquwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1bvp3"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
