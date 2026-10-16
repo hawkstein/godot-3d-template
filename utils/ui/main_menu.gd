@@ -70,6 +70,7 @@ func _finish_leaving(panel: Control) -> void:
 
 
 func _on_start_button_pressed() -> void:
+	RunState.reset()
 	ScreenChanger.change_to("main")
 
 

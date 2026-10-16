@@ -27,6 +27,7 @@ config/icon="res://icon.svg"
 AudioManager="*res://utils/audio_manager.gd"
 DataStore="*res://utils/config/data_store.gd"
 ScreenChanger="*res://utils/screen_changer.tscn"
+RunState="*uid://debxyg8drl4hc"
 
 [display]
 
